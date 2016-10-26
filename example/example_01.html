@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:v-bind="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>animate - MK Vue2練習實作</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="../css/vue2-animate.min.css" />
+    <link rel="icon" href="../images/favicon.ico" type="image/x-icon">
+</head>
+<body>
+<div class="container">
+    <h1>Vue2 - animate</h1>
+    <a href="../" class="glyphicon glyphicon-home" title="回到首頁"></a>
+    <div id="example01" class="row">
+        <div class="col-md-4">
+            <h3>選擇要顯示的效果</h3>
+            <div class="form-group">
+                <select name="effect" v-model="effect" class="form-control">
+                    <optgroup label="Bounce">
+                        <option value="bounce">bounce</option>
+                        <option value="bounceDown">bounceDown</option>
+                        <option value="bounceLeft">bounceLeft</option>
+                        <option value="bounceRight">bounceRight</option>
+                        <option value="bounceUp">bounceUp</option>
+                    </optgroup>
+                    <optgroup label="Fade">
+                        <option value="fade">fade</option>
+                        <option value="fadeDown">fadeDown</option>
+                        <option value="fadeDownBig">fadeDownBig</option>
+                        <option value="fadeLeft">fadeLeft</option>
+                        <option value="fadeLeftBig">fadeLeftBig</option>
+                        <option value="fadeRight">fadeRight</option>
+                        <option value="fadeRightBig">fadeRightBig</option>
+                        <option value="fadeUp">fadeUp</option>
+                        <option value="fadeUpBig">fadeUpBig</option>
+                    </optgroup>
+                    <optgroup label="Rotate">
+                        <option value="rotate">rotate</option>
+                        <option value="rotateDownLeft">rotateDownLeft</option>
+                        <option value="rotateDownRight">rotateDownRight</option>
+                        <option value="rotateUpLeft">rotateUpLeft</option>
+                        <option value="rotateUpRight">rotateUpRight</option>
+                    </optgroup>
+                    <optgroup label="Slide">
+                        <option value="slideDown">slideDown</option>
+                        <option value="slideLeft">slideLeft</option>
+                        <option value="slideRight">slideRight</option>
+                        <option value="slideUp">slideUp</option>
+                    </optgroup>
+                    <optgroup label="Zoom">
+                        <option value="zoom">zoom</option>
+                        <option value="zoomDown">zoomDown</option>
+                        <option value="zoomLeft">zoomLeft</option>
+                        <option value="zoomRight">zoomRight</option>
+                        <option value="zoomUp">zoomUp</option>
+                    </optgroup>
+                </select>
+            </div>
+            <div class="code-sample">
+                <pre><code>參考來源：<a href="https://github.com/asika32764/vue2-animate" target="_blank">vue2-animate</a><br />程式碼：<a href="https://github.com/MckeyHong/mk_vue2/blob/master/example/example_01.html" target="_blank">source code</a></code></pre>
+            </div>
+        </div>
+        <div class="col-md-8">
+            <div class="text-toolbar">
+                <div class="input-group">
+                    <input type="text" class="form-control" v-model="input" />
+                    <span class="input-group-btn">
+                        <button type="button" class="btn btn-success" @click="addItem" title="增加">增加</button>
+                        <button type="button" class="btn btn-danger" @click="reset" title="清除">清除</button>
+                    </span>
+                </div>
+            </div>
+            <br />
+            <div class="list-box">
+                <transition-group v-bind:name="effect" tag="ul" class="list-group">
+                    <li v-for="(item, i) in items" class="list-group-item" v-bind:key="i">
+                        <div class="pull-left">{{ item }}</div>
+                        <div class="pull-right"><button type="button" class="btn btn-warning" @click="remove(i)" title="移除">移除</button></div>
+                        <div class="clearfix"></div>
+                    </li>
+                </transition-group>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.0.3/vue.js"></script>
+<script>
+    var example01 = new Vue({
+        el: '#example01',
+        data: {
+            items: ['VueJs', 'React'], //初始資料
+            input: 'Demo', //欄位初始資料
+            effect: 'fade' //預設效果
+        },
+        methods: {
+            //增加
+            addItem: function () {
+                if (!this.input) {
+                    return;
+                }
+                this.items.push(this.input);
+            },
+            //清除
+            reset: function () {
+                this.items = [];
+            },
+            //移除
+            remove: function (keys) {
+                this.items.splice(keys, 1);
+            }
+        }
+    });
+</script>
+</body>
+</html>
